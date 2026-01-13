@@ -160,6 +160,329 @@ Bonus: Check that GitHub pages is updating.
 - LATER: Review the 3 designs, based on screenshots in PRs.
 
 **Result:** 3 cloud agent sessions which will take a few minutes to complete. Meanwhile …
-overview)
 
-- [Awesome Copilot](https://github.com/github/awesome-copilot) for more customizations
+## 3. Building with Agents
+
+Time to add real features using the plan-first workflow.
+
+### Task: Add a new game - "Trivia Blitz"
+
+**TL;DR**: Use plan mode to architect a new game, then implement with agent assistance.
+
+1. Switch to **Plan mode**
+2. Prompt: *Add a new game called "Trivia Blitz" - players answer multiple choice questions, fastest correct answer gets most points, 10 questions per round*
+3. Iterate on the plan (2+ times!):
+   - *Add difficulty levels (easy/medium/hard)*
+   - *Include category selection (science, history, pop culture, sports)*
+   - *Show countdown timer with urgency animation*
+4. Switch to Agent mode and implement
+5. Test by playing with 2+ players
+6. Commit with a descriptive message
+
+**Bonus**: Use a background agent to generate 50+ trivia questions across categories:
+- Chat `+` > New background agent
+- *Generate 50 trivia questions in src/games/trivia-blitz/questions.ts - mix of easy/medium/hard across science, history, pop culture, sports categories*
+
+**Result**: You've added a complete new game following existing patterns, guided by AI.
+
+### Task: Create a /new-game prompt
+
+**TL;DR**: Author a reusable prompt for adding games consistently.
+
+1. Create `.github/prompts/new-game.prompt.md`:
+
+```markdown
+---
+agent: agent
+argument-hint: "Game Name" - brief description of mechanics
+tools: ['read', 'search', 'editFiles', 'runInTerminal']
+---
+
+Create a new party game following existing patterns in src/games/.
+
+## Requirements from user
+{{input}}
+
+## Checklist
+- [ ] Game component in src/games/{game-name}/
+- [ ] Game-specific types added to src/types/game.ts
+- [ ] Prompts/data file if needed
+- [ ] Route added to App.tsx
+- [ ] Game card added to Home.tsx
+- [ ] Barrel export in index.ts
+
+## Reference existing games
+- Word Chain: Timer-based word game with lives
+- Quick Draw: Canvas drawing with guessing
+- Emoji Charades: Emoji-only communication
+
+Match the code style, component patterns, and state management approach.
+```
+
+2. Test it: `/new-game "Hot Potato" - pass a virtual potato between players, random timer (5-15s), last holder when timer expires loses a life, last player standing wins`
+
+3. Review the implementation, iterate if needed
+
+4. Commit the prompt
+
+**Result**: Reusable prompt for consistent game creation across the team.
+
+### Task: Quick game ideas to try
+
+Use `/new-game` or plan mode with any of these:
+
+| Game | Mechanics |
+|------|-----------|
+| **Reaction Race** | Random prompt appears, first to tap wins the round |
+| **Story Builder** | Each player adds one sentence, vote on best story |
+| **Lip Sync Battle** | Display lyrics, others guess the song |
+| **Two Truths One Lie** | Players write 3 statements, others guess the lie |
+| **Speed Sketch** | 10-second drawings, rapid fire rounds |
+| **Mime Time** | Like charades but with a webcam silhouette |
+
+## 4. Custom Agents
+
+Create specialized agents for repeatable workflows.
+
+### Task: Create an accessibility review agent
+
+**TL;DR**: Build a custom agent that reviews UI for accessibility issues.
+
+1. Create `.github/agents/a11y-review.agent.md`:
+
+```markdown
+---
+name: Accessibility Review
+argument-hint: Page or component to review (or "all")
+tools: ['playwright/*', 'read', 'search', 'editFiles']
+---
+
+Review the application for WCAG 2.1 AA accessibility compliance.
+
+## Review checklist
+- [ ] Color contrast ratios (4.5:1 for text, 3:1 for large text)
+- [ ] Keyboard navigation (all interactive elements focusable)
+- [ ] Focus indicators visible and clear
+- [ ] ARIA labels on icons and non-text elements
+- [ ] Form labels properly associated
+- [ ] Touch targets minimum 44x44px
+- [ ] Motion respects prefers-reduced-motion
+
+## Process
+1. Use Playwright to navigate through the app
+2. Check each page against the checklist
+3. Generate a prioritized list of issues
+4. Suggest specific code fixes
+
+## Output
+Markdown report with:
+- Critical issues (blocking)
+- Warnings (should fix)
+- Suggestions (nice to have)
+```
+
+2. Run: `@a11y-review start` or `@a11y-review Home page`
+
+3. Review findings and fix critical issues
+
+4. Commit the agent and fixes
+
+**Result**: Reusable agent for ongoing accessibility audits.
+
+### Task: Create a game balance agent
+
+**TL;DR**: Agent that analyzes game mechanics for balance and fun factor.
+
+1. Create `.github/agents/game-balance.agent.md`:
+
+```markdown
+---
+name: Game Balance Review  
+argument-hint: Game name to analyze
+tools: ['read', 'search']
+---
+
+Analyze a party game for balance, fairness, and fun factor.
+
+## Analysis areas
+
+### Timing
+- Is the timer duration appropriate for the difficulty?
+- Do players have enough time to think but still feel pressure?
+- Are there dead periods where players are waiting?
+
+### Scoring
+- Is scoring fair across different player counts?
+- Do early/late players have advantages?
+- Is there comeback potential or does leader always win?
+
+### Edge cases
+- What happens if all players fail?
+- What if only 2 players remain?
+- Are there exploits or degenerate strategies?
+
+### Engagement
+- Is every player engaged even when not their turn?
+- Is there variety to prevent repetition?
+- What's the optimal game length?
+
+## Output
+Provide specific, actionable recommendations with code snippets.
+```
+
+2. Run: `@game-balance word-chain`
+
+3. Implement suggested balance tweaks
+
+4. Commit the agent
+
+**Result**: AI-assisted game design validation you can run on any game.
+
+### Task: Explore the UI Review agent
+
+**TL;DR**: The repo includes a pre-built UI review agent using Playwright.
+
+1. Make sure dev server is running (`npm run dev`)
+2. Run: `@ui-review start`
+3. Watch it navigate through the app and identify issues
+4. Review the generated report
+
+See `.github/agents/ui-review.agent.md` for implementation details.
+
+## 5. Testing & Quality
+
+Add automated testing with AI assistance.
+
+### Task: Set up Vitest
+
+**TL;DR**: Use a background agent to scaffold testing infrastructure.
+
+1. Chat `+` > New background agent:
+   *Set up Vitest with React Testing Library and jsdom. Add test and test:ui scripts to package.json. Create a sample test for the useTimer hook.*
+
+2. Review and apply changes
+
+3. Run `npm test` to verify setup
+
+4. Update `AGENTS.md` checklist to include `npm test`
+
+**Result**: Testing infrastructure ready for AI-generated tests.
+
+### Task: Write tests with AI
+
+**TL;DR**: Use plan mode to design test coverage, then implement.
+
+1. Plan mode: *Write comprehensive tests for the useTimer hook covering: start, pause, resume, reset, expiry callback, and edge cases*
+
+2. Review the test plan - are there missing scenarios?
+
+3. Implement the tests
+
+4. Plan mode: *Write tests for the gameStore - cover addPlayer, removePlayer, startGame, endGame, and score updates*
+
+5. Implement and verify all tests pass
+
+**Result**: Growing test suite with AI-generated test cases.
+
+### Task: Add a test prompt
+
+Create `.github/prompts/add-tests.prompt.md` for consistent test generation:
+
+```markdown
+---
+agent: agent
+argument-hint: Component, hook, or file to test
+tools: ['read', 'search', 'editFiles', 'runInTerminal']
+---
+
+Write comprehensive tests for the specified code.
+
+## Guidelines
+- Use Vitest + React Testing Library
+- Test behavior, not implementation
+- Cover happy path, edge cases, and error states
+- Mock external dependencies
+- Use descriptive test names
+
+## Reference
+Check existing tests in __tests__/ or *.test.ts files for patterns.
+```
+
+## 6. Capstone: Multiplayer Lobby System
+
+Tie everything together with a larger feature.
+
+### Overview
+
+Build a shareable lobby system where:
+- Host creates a room with a shareable code
+- Other players join via the code
+- Real-time player list updates
+- Host controls when to start the game
+
+This exercise uses every skill from the workshop:
+- **Context engineering** for architecture guidance
+- **Plan mode** for design iteration  
+- **Cloud agents** for exploring approaches
+- **Custom agents** for review
+- **Testing** for quality
+
+### Step 1: Plan the architecture
+
+1. Switch to **Plan mode**
+2. Prompt: *Design a lobby system for this party game app. Host creates a room with a 4-letter code, others join by entering the code. Show real-time player list. Host has a "Start Game" button. Consider: What happens if host disconnects? How do we sync state?*
+3. Iterate on the plan:
+   - *What are the tradeoffs between localStorage+polling vs WebSockets vs a service like Partykit?*
+   - *Keep it simple - what's the MVP that works for a demo?*
+
+### Step 2: Explore implementation approaches
+
+Run: `/cloud-explore lobby implementation`
+
+The cloud agents will explore variations like:
+- **LocalStorage + BroadcastChannel** (same device/browser only)
+- **Partykit** (real WebSockets, free tier available)
+- **Supabase Realtime** (PostgreSQL + realtime subscriptions)
+
+Review the PRs when complete - each will have working code to compare.
+
+### Step 3: Implement your choice
+
+Based on the PR reviews, pick an approach and implement:
+
+1. Merge the PR you prefer, OR
+2. Use it as reference and implement in Agent mode
+
+### Step 4: Review and polish
+
+1. `@ui-review lobby flow` - check for UX issues
+2. `@a11y-review lobby` - verify accessibility
+3. `@game-balance` - does waiting in lobby feel good?
+
+### Step 5: Document
+
+1. Update `AGENTS.md` with new architecture notes
+2. Update `README.md` with lobby instructions
+3. Commit and push - watch GitHub Pages deploy!
+
+**Result**: Full feature lifecycle with AI assistance at every stage.
+
+---
+
+## Resources
+
+- [Awesome Copilot](https://github.com/github/awesome-copilot) - More customizations and examples
+- [Tailwind CSS v4 Docs](https://tailwindcss.com/docs) - Styling reference
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [Partykit](https://www.partykit.io/) - Real-time multiplayer infrastructure
+- [Vitest](https://vitest.dev/) - Fast unit testing
+
+## What's Next?
+
+After completing this workshop, try:
+
+1. **Ship it**: Share your game URL with friends and play together
+2. **Add more games**: Use `/new-game` to keep building
+3. **Go multiplayer**: Implement the lobby system for real
+4. **Contribute back**: PR your best game to the template repo
+5. **Apply to your work**: Use these patterns in your own projects
