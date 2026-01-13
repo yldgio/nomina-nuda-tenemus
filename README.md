@@ -1,112 +1,109 @@
-# Social Games
+# Social Games - Vibe Coding Lab
 
-A collection of fun, local multiplayer party games built with React, TypeScript, and Tailwind CSS v4.
+A hands-on workshop for learning **agentic coding** with AI assistants. Build and customize multiplayer party games while mastering context engineering, background agents, and design-first development.
 
-## Games Included
+## What is Vibe Coding?
 
-### Word Chain
-Players take turns saying words that start with the last letter of the previous word. Each player has 3 lives and 15 seconds per turn. No repeating words allowed!
+Vibe coding is AI-assisted development where you guide intelligent agents through natural language, iterate on plans before implementation, and leverage parallel exploration to scale your creativity. This repo provides a real codebase to practice these techniques.
 
-### Quick Draw
-One player draws a prompt while others try to guess what it is. Features a full drawing canvas with colors, brush sizes, and eraser. 60 seconds per round.
+## Workshop Guide
 
-### Emoji Charades
-Describe movies, songs, phrases, or books using only emojis. Other players race to guess correctly. 45 seconds per round.
+**Start here:** Open `.lab/GUIDE.md` for the full workshop walkthrough.
 
-## Getting Started
+### Learning Objectives
+
+1. **Context Engineering** - Onboard AI to your codebase with instructions and prompts
+2. **Agentic Primitives** - Use plan mode, background agents, and cloud agents effectively
+3. **Scaled Exploration** - Run parallel agents to explore design variations
+4. **Design-First Vibing** - Build beautiful, distinctive frontends with AI collaboration
+
+## Quick Start
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v18 or higher
-- npm (comes with Node.js)
+- [VS Code](https://code.visualstudio.com/) v1.107+
+- [Node.js](https://nodejs.org/) v18+
+- GitHub account with Copilot access
 
-### Installation
+### Setup
 
-1. Clone the repository:
+1. **Use this template** → Create your own repository (make it Public)
+
+2. **Enable GitHub Pages**: Settings → Pages → Deploy from GitHub Actions
+
+3. **Clone and open in VS Code**:
    ```bash
-   git clone <repository-url>
-   cd social-games
+   git clone https://github.com/<your-username>/<your-repo>
+   code <your-repo>
    ```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+4. **Run the setup prompt**: Open Chat and run `/setup`
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+5. **Start developing**: `npm run dev` → Open `http://localhost:5173`
 
-4. Open your browser to `http://localhost:5173`
+## Games Included
 
-### Build for Production
+| Game | Description |
+|------|-------------|
+| **Word Chain** | Chain words by their last letter. 3 lives, 15 seconds per turn. |
+| **Quick Draw** | Draw prompts on canvas while others guess. 60 seconds per round. |
+| **Emoji Charades** | Describe movies/songs/phrases using only emojis. 45 seconds per round. |
 
-```bash
-npm run build
-```
+## Workshop Tasks
 
-The built files will be in the `dist/` directory. Preview the production build locally:
+### 1. Context Engineering
+- Run `/setup` prompt for AI-guided installation
+- Generate workspace instructions with `Chat: Generate Workspace Instructions File`
+- Explore background agents for parallel tasks
 
-```bash
-npm run preview
-```
+### 2. Design-First Vibing
+- Use **Plan mode** for redesigns: *"Let's do a full redesign. Make it Cyberpunk Neon..."*
+- Run `/cloud-explore` for parallel design explorations
+- Keep instructions updated with design changes
 
-## How to Play
-
-1. **Select a Game** - Choose from Word Chain, Quick Draw, or Emoji Charades on the home screen
-
-2. **Add Players** - Add at least 2 players with names and avatar emojis
-
-3. **Start Playing** - Pass the device between players when it's their turn
-
-4. **Score Points** - Points are awarded based on correct answers and speed
-
-5. **Win!** - The player with the most points at the end wins
+### Design Ideas to Try
+Minimalist Mono • Retro Terminal Green • Vaporwave Sunset • Cyberpunk Neon • Brutalist Blocks • Soft Pastel Clouds • Dark Mode Noir • Pixel Arcade Style • Gradient Glass UI • Space Galaxy Glow
 
 ## Tech Stack
 
-- **React 19** - UI framework
-- **TypeScript** - Type safety
-- **Vite 6** - Build tool and dev server
-- **Tailwind CSS v4** - Styling with CSS-first configuration
+- **React 19** + **TypeScript** + **Vite 6**
+- **Tailwind CSS v4** - CSS-first configuration
 - **Zustand** - State management
 - **Framer Motion** - Animations
 - **React Router v7** - Navigation
-- **Lucide React** - Icons
 
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── ui/           # Button, Card, Input, Modal
-│   └── game/         # Timer, ScoreBoard, TurnIndicator, GameOverModal
-├── games/
-│   ├── word-chain/   # Word Chain game
-│   ├── quick-draw/   # Quick Draw game with canvas
-│   └── emoji-charades/ # Emoji Charades game
-├── hooks/            # useTimer custom hook
-├── stores/           # Zustand game store
-├── types/            # TypeScript definitions
-├── pages/            # Home and GameLobby pages
-└── index.css         # Tailwind theme configuration
+├── .github/
+│   ├── instructions/    # AI agent instructions (Tailwind v4, design)
+│   ├── prompts/         # Reusable prompts (/setup, /cloud-explore)
+│   └── workflows/       # GitHub Actions (auto-deploy to Pages)
+├── .lab/
+│   └── GUIDE.md         # Workshop guide (start here!)
+├── src/
+│   ├── components/      # UI and game components
+│   ├── games/           # Game implementations
+│   ├── stores/          # Zustand state
+│   └── index.css        # Tailwind theme
+├── AGENTS.md            # Coding agent guidelines
+└── README.md            # You are here
 ```
 
-## Available Scripts
+## Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server with hot reload |
+| `npm run dev` | Start dev server with hot reload |
 | `npm run build` | Type-check and build for production |
-| `npm run preview` | Preview production build locally |
 | `npm run lint` | Run ESLint |
+| `npm run preview` | Preview production build |
 
-## Contributing
+## Resources
 
-1. Follow the coding guidelines in `AGENTS.md`
-2. Use conventional commits for commit messages
-3. Run `npm run build` before submitting to ensure no type errors
+- [Awesome Copilot](https://github.com/github/awesome-copilot) - More customizations
+- [Tailwind CSS v4 Docs](https://tailwindcss.com/docs) - Styling reference
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
 
 ## License
 

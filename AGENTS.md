@@ -1,6 +1,17 @@
 # AGENTS.md - Coding Agent Guidelines
 
-> Guidelines for AI coding agents operating in the Social Games codebase.
+> Guidelines for AI coding agents operating in this vibe coding workshop codebase.
+
+## Purpose
+
+This repository is a **training lab for agentic coding**. The social games app serves as a real-world codebase for practicing AI-assisted development, context engineering, and design-first workflows.
+
+## Development Checklist
+
+Before committing, ensure:
+- [ ] `npm run lint` passes
+- [ ] `npm run build` succeeds
+- [ ] App runs without console errors
 
 ## Build & Development Commands
 
@@ -17,16 +28,21 @@ npx tsc --noEmit     # Type check only (no build)
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── ui/           # Reusable UI primitives (Button, Card, Input, Modal)
-│   └── game/         # Shared game components (Timer, ScoreBoard, etc.)
-├── games/            # Game implementations (each in own folder)
-├── hooks/            # Custom React hooks (useTimer, etc.)
-├── stores/           # Zustand state management
-├── types/            # TypeScript type definitions
-├── pages/            # Route-level page components
-└── index.css         # Tailwind v4 theme configuration
+├── .github/
+│   ├── instructions/    # Agent instructions (loaded automatically)
+│   ├── prompts/         # Reusable prompts (/setup, /cloud-explore)
+│   └── workflows/       # GitHub Actions for Pages deployment
+├── .lab/                # Workshop guide (ignored by agents)
+├── src/
+│   ├── components/
+│   │   ├── ui/          # Reusable UI primitives
+│   │   └── game/        # Shared game components
+│   ├── games/           # Game implementations (each in own folder)
+│   ├── hooks/           # Custom React hooks
+│   ├── stores/          # Zustand state management
+│   ├── types/           # TypeScript definitions
+│   ├── pages/           # Route-level components
+│   └── index.css        # Tailwind v4 theme configuration
 ```
 
 ## Code Style Guidelines
@@ -58,17 +74,6 @@ Use `@/*` path alias for all src imports.
 - Prefer `type` imports: `import type { Player } from '@/types'`
 - Export types from barrel files (`index.ts`) in each directory
 - Use discriminated unions for game-specific state
-
-```typescript
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
-  size?: 'sm' | 'md' | 'lg'
-  onClick?: () => void
-  children?: ReactNode
-}
-
-type GameStatus = 'lobby' | 'playing' | 'round-end' | 'finished'
-```
 
 ### React Components
 - Function components with inferred return types
@@ -116,48 +121,24 @@ export default function Card({ children, className = '', variant = 'default' }: 
 - Define store interface before implementation
 - Use `set` with callback for state updates
 
-```typescript
-const useGameStore = create<GameStore>((set) => ({
-  players: [],
-  addPlayer: (name, avatar) => {
-    set((state) => ({ players: [...state.players, newPlayer] }))
-  },
-}))
-```
-
 ### Animation (Framer Motion)
 - Use `motion` components for animated elements
 - Prefer `AnimatePresence` for enter/exit animations
 - Keep animations subtle - focus on high-impact moments
 
-```tsx
-<motion.div
-  initial={{ opacity: 0, y: 10 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
->
-```
-
 ### Error Handling
 - Use early returns for guard clauses
 - Type-narrow with discriminated unions, not assertions
 
-```typescript
-if (!session || !gameState) return null
-
-if (session.gameType === 'word-chain') {
-  // TypeScript knows session.gameState is WordChainState
-}
-```
-
 ## Design Guidelines
+
 Reference `.github/instructions/frontend-design.instructions.md`:
 - **Typography**: Distinctive fonts (Sora, DM Sans) - avoid Inter/Roboto
 - **Color**: Cohesive palettes with dominant + accent colors (oklch)
 - **Motion**: High-impact transitions, not scattered micro-animations
 - **Backgrounds**: Layer gradients and blur for depth
 
-Avoid "AI slop": no purple gradients, no generic fonts, no cookie-cutter patterns.
+**Avoid "AI slop"**: no purple gradients, no generic fonts, no cookie-cutter patterns.
 
 ## File Organization
 - Create barrel exports (`index.ts`) for each directory
@@ -165,3 +146,4 @@ Avoid "AI slop": no purple gradients, no generic fonts, no cookie-cutter pattern
 - Shared UI: `src/components/ui/`
 - Game-specific components stay in their game folder
 - Data files (prompts, emoji lists) alongside game components
+- **Do not modify `.lab/` folder** - workshop guide only
