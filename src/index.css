@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Typography - Distinctive font choices */
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Color palette - warm terracotta with deep navy */
+  --color-surface-50: oklch(0.98 0.005 85);
+  --color-surface-100: oklch(0.95 0.008 85);
+  --color-surface-200: oklch(0.90 0.012 85);
+  --color-surface-300: oklch(0.82 0.015 85);
+  --color-surface-400: oklch(0.70 0.020 85);
+  --color-surface-500: oklch(0.55 0.025 85);
+  --color-surface-600: oklch(0.45 0.030 85);
+  --color-surface-700: oklch(0.35 0.025 85);
+  --color-surface-800: oklch(0.25 0.020 85);
+  --color-surface-900: oklch(0.18 0.015 85);
+  --color-surface-950: oklch(0.12 0.010 85);
+
+  /* Accent - vibrant coral/terracotta */
+  --color-accent-400: oklch(0.75 0.16 35);
+  --color-accent-500: oklch(0.65 0.18 30);
+  --color-accent-600: oklch(0.55 0.17 28);
+
+  /* Secondary - cool teal */
+  --color-teal-400: oklch(0.75 0.12 185);
+  --color-teal-500: oklch(0.65 0.14 185);
+  --color-teal-600: oklch(0.55 0.13 185);
+
+  /* Tertiary - golden amber */
+  --color-amber-400: oklch(0.82 0.15 85);
+  --color-amber-500: oklch(0.72 0.16 80);
+
+  /* Game-specific colors */
+  --color-success: oklch(0.72 0.17 145);
+  --color-warning: oklch(0.78 0.15 75);
+  --color-error: oklch(0.65 0.20 25);
+
+  /* Shadows */
+  --shadow-soft: 0 2px 15px -3px oklch(0.20 0.02 85 / 0.15), 0 4px 6px -4px oklch(0.20 0.02 85 / 0.1);
+  --shadow-medium: 0 4px 25px -5px oklch(0.20 0.02 85 / 0.2), 0 8px 10px -6px oklch(0.20 0.02 85 / 0.15);
+  --shadow-glow: 0 0 30px -5px var(--color-accent-500);
+
+  /* Animation timing */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Radius */
+  --radius-soft: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-button: 0.625rem;
+}
+
+/* Base styles */
+html {
+  font-family: var(--font-body);
+  background: var(--color-surface-50);
+  color: var(--color-surface-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--color-accent-500);
+  color: white;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-400);
+}

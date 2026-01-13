@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+   "agent": {
+    "code-reviewer": {
+      "description": "Reviews code for best practices and potential issues",
+      "mode": "subagent",
+      "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
+      "tools": {
+        "write": false,
+        "edit": false
+      }
+    },
+    "ui-reviewer": {
+      "description": "Reviews UI/UX aspects of the code",
+      "mode": "primary",
+      "prompt": ".github/agents/ui-review.agent.md"
+    }
+   },
+  "instructions": [
+    ".github/instructions/*.md",
+    ".github/copilot-instructions.md"
+  ]
+}
