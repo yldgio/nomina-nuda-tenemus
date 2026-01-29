@@ -8,7 +8,7 @@ Vibe coding is AI-assisted development where you guide intelligent agents throug
 
 ## Workshop Guide
 
-**Start here:** Open `.lab/GUIDE.md` for the full workshop walkthrough.
+**Start here:** Open [.lab/GUIDE.md](.lab/GUIDE.md) for the full workshop walkthrough.
 
 ### Learning Objectives
 
